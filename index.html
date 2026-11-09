@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turagiye Coaching — Vivez le sport autrement</title>
+  <meta name="description" content="Turagiye Coaching, local de coaching sportif à Panazol / Limoges. Coaching individuel, cours collectifs (CrossFit, Hyrox, renforcement, CAF, Pilates) et préparation physique. Tout âge, tout niveau, tout objectif.">
+  <link rel="icon" href="images/logo-noir.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0b0b0b;
+      --ink: #151515;
+      --ink-2: #1e1e1e;
+      --line: rgba(255,255,255,.12);
+      --white: #fbfaf6;
+      --paper: #f3f1ea;
+      --grey: #8d8a82;
+      --yellow: #ffe100;
+      --gold: #c9a24a;
+      --gold-grad: linear-gradient(120deg, #f1d98f 0%, #c9a24a 45%, #9c7429 100%);
+      --display: "Archivo", system-ui, sans-serif;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Inter", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--white); color: var(--black); font-family: var(--sans); line-height: 1.65; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    .container { width: min(1200px, 100% - 40px); margin-inline: auto; }
+
+    h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1; margin: 0; letter-spacing: -.02em; text-transform: uppercase; }
+    h2 { font-size: clamp(2.2rem, 5.2vw, 4rem); }
+    .gold-text {
+      font-family: var(--serif); font-style: italic; font-weight: 600; text-transform: none; letter-spacing: 0;
+      background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: .78rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--gold);
+    }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--gold-grad); }
+    .lead { font-size: 1.12rem; color: #4b4943; max-width: 56ch; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .6em; padding: 1.05em 1.8em;
+      font: inherit; font-weight: 600; font-size: .95rem; text-decoration: none; border: 0; cursor: pointer;
+      border-radius: 2px; transition: transform .25s, background .25s, color .25s, box-shadow .25s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-yellow { background: var(--yellow); color: var(--black); }
+    .btn-yellow:hover { box-shadow: 0 10px 30px -10px rgba(255,225,0,.6); }
+    .btn-line { color: var(--white); box-shadow: inset 0 0 0 1px rgba(201,162,74,.7); }
+    .btn-line:hover { background: rgba(201,162,74,.12); }
+    .btn-black { background: var(--black); color: var(--white); }
+
+    /* ---------- Navigation ---------- */
+    .nav { position: absolute; inset: 0 0 auto; z-index: 10; padding: 22px 0; color: var(--white); }
+    .nav .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo img { height: 62px; width: auto; }
+    .nav ul { display: flex; gap: 34px; list-style: none; margin: 0; padding: 0; font-size: .92rem; }
+    .nav ul a { text-decoration: none; opacity: .8; transition: opacity .2s; }
+    .nav ul a:hover { opacity: 1; }
+
+    /* ---------- Hero ---------- */
+    .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; background: var(--black); color: var(--white); overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 45%; filter: grayscale(1) contrast(1.05); animation: zoom 16s ease-out both; }
+    @keyframes zoom { from { transform: scale(1.1); } to { transform: scale(1); } }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(11,11,11,.85) 0%, rgba(11,11,11,.35) 30%, rgba(11,11,11,.92) 100%),
+        linear-gradient(90deg, rgba(11,11,11,.85) 0%, rgba(11,11,11,.4) 55%, rgba(11,11,11,.15) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 160px 0 clamp(70px, 12vh, 130px); }
+    .hero h1 { font-size: clamp(2.7rem, 6.4vw, 5.6rem); margin: 20px 0 24px; max-width: 15ch; }
+    .hero h1 .gold-text { display: block; font-size: .6em; margin-top: .22em; }
+    .hero h1 .hl { color: var(--yellow); }
+    .hero p { max-width: 48ch; font-size: 1.12rem; color: rgba(251,250,246,.82); margin: 0 0 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero .rise { animation: rise 1s cubic-bezier(.2,.7,.2,1) both; }
+    .hero .rise:nth-child(2) { animation-delay: .15s; } .hero .rise:nth-child(3) { animation-delay: .3s; } .hero .rise:nth-child(4) { animation-delay: .45s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+    .hero-stats {
+      position: absolute; right: 20px; bottom: clamp(70px, 12vh, 130px); z-index: 2;
+      display: grid; gap: 22px; text-align: right;
+    }
+    .hero-stats div { border-right: 1px solid var(--gold); padding-right: 16px; }
+    .hero-stats strong { display: block; font-family: var(--display); font-size: 1.05rem; text-transform: uppercase; letter-spacing: .04em; }
+    .hero-stats span { font-size: .82rem; color: rgba(251,250,246,.6); }
+
+    /* ---------- Bandeau disciplines ---------- */
+    .marquee { background: var(--yellow); color: var(--black); overflow: hidden; padding: 18px 0; border-block: 1px solid #000; }
+    .marquee-track { display: flex; width: max-content; animation: scroll 32s linear infinite; }
+    .marquee span { font-family: var(--display); font-weight: 800; font-size: 1.25rem; text-transform: uppercase; letter-spacing: .02em; padding: 0 28px; white-space: nowrap; display: inline-flex; align-items: center; gap: 56px; }
+    .marquee span::after { content: "✦"; font-size: .8rem; }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+
+    /* ---------- Pour tout le monde ---------- */
+    .everyone { padding: 130px 0; }
+    .everyone .container { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
+    .everyone h2 { margin: 18px 0 24px; }
+    .trio { display: grid; grid-template-columns: repeat(3, 1fr); margin: 36px 0; border-top: 1px solid #ddd8cb; }
+    .trio div { padding: 20px 16px 0 0; }
+    .trio strong { font-family: var(--display); font-size: clamp(1rem, 1.6vw, 1.2rem); white-space: nowrap; text-transform: uppercase; display: block; }
+    .trio span { color: var(--grey); font-size: .9rem; }
+    .goals { display: flex; flex-wrap: wrap; gap: 10px; }
+    .goals li { list-style: none; padding: .55em 1.1em; border: 1px solid var(--black); font-size: .88rem; font-weight: 500; border-radius: 999px; }
+    .goals { padding: 0; margin: 0; }
+    .everyone-img { position: relative; }
+    .everyone-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: 50% 55%; }
+    .everyone-img::before { content: ""; position: absolute; inset: 22px -22px -22px 22px; border: 1px solid var(--gold); z-index: -1; }
+    .badge {
+      position: absolute; left: -24px; bottom: 36px; background: var(--black); color: var(--white);
+      padding: 18px 22px; max-width: 230px; font-size: .88rem; line-height: 1.4;
+    }
+    .badge b { color: var(--yellow); font-family: var(--display); text-transform: uppercase; display: block; font-size: 1rem; margin-bottom: 4px; }
+
+    /* ---------- Offres ---------- */
+    .offers { background: var(--black); color: var(--white); padding: 130px 0; }
+    .offers-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 56px; }
+    .offers-head p { max-width: 44ch; color: rgba(251,250,246,.65); margin: 0; }
+    .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .offer { position: relative; background: var(--ink); border: 1px solid var(--line); display: flex; flex-direction: column; overflow: hidden; transition: border-color .3s; }
+    .offer:hover { border-color: rgba(201,162,74,.6); }
+    .offer-img { aspect-ratio: 16/10; overflow: hidden; }
+    .offer-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.25); transition: transform .9s, filter .9s; }
+    .offer:hover .offer-img img { transform: scale(1.04); filter: grayscale(0); }
+    .offer-body { padding: 34px 34px 38px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .offer .num { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 1.05rem; }
+    .offer h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+    .offer p { margin: 0; color: rgba(251,250,246,.72); }
+    .offer ul { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px; }
+    .offer li { display: flex; gap: 12px; align-items: baseline; color: rgba(251,250,246,.88); }
+    .offer li::before { content: ""; width: 7px; height: 7px; background: var(--yellow); flex: none; transform: translateY(-2px); }
+    .offer .btn { margin-top: auto; align-self: flex-start; }
+
+    .disciplines { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 80px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .disc { padding: 30px 28px 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .3s; }
+    .disc:hover { background: var(--ink); }
+    .disc .n { font-family: var(--serif); font-style: italic; color: var(--gold); }
+    .disc h4 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.3rem; margin: 8px 0 8px; letter-spacing: -.01em; }
+    .disc p { margin: 0; font-size: .93rem; color: rgba(251,250,246,.62); }
+    .disc.star { background: linear-gradient(160deg, rgba(201,162,74,.16), transparent 70%); }
+    .disc.star h4 { color: var(--yellow); }
+
+    /* ---------- Tarifs ---------- */
+    .pricing { padding: 130px 0; background: var(--white); }
+    .pricing-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+    .pricing-head p { max-width: 42ch; color: #4b4943; margin: 0; }
+    .price-group { font-size: .85rem; letter-spacing: .2em; color: var(--grey); font-weight: 700; margin: 0 0 20px; }
+    .plans { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+    .plan { grid-column: span 2; display: flex; flex-direction: column; gap: 12px; padding: 30px 28px; background: #fff; border: 1px solid #e3ded1; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .plan:nth-child(4), .plan:nth-child(5) { grid-column: span 3; }
+    .plan:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 24px 40px -28px rgba(0,0,0,.35); }
+    .plan .cat { font-size: .74rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #9c7429; }
+    .plan h4 { font-family: var(--display); font-weight: 800; font-size: 1.35rem; text-transform: uppercase; margin: 0; }
+    .price { font-family: var(--display); font-weight: 900; font-size: 2.6rem; letter-spacing: -.02em; line-height: 1; }
+    .price small { font-family: var(--sans); font-weight: 500; font-size: .9rem; color: var(--grey); letter-spacing: 0; margin-left: 4px; }
+    .plan ul { list-style: none; padding: 0; margin: 4px 0 8px; display: grid; gap: 8px; font-size: .93rem; color: #4b4943; }
+    .plan li { display: flex; gap: 10px; }
+    .plan li::before { content: ""; width: 6px; height: 6px; margin-top: .6em; background: var(--yellow); outline: 1px solid var(--black); flex: none; }
+    .plan .btn { margin-top: auto; align-self: flex-start; }
+    .plan-premium { background: var(--black); color: var(--white); border-color: var(--gold); position: relative; }
+    .plan-premium::before { content: ""; position: absolute; inset: 0; border: 1px solid transparent; background: var(--gold-grad) border-box; -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .plan-premium .cat { color: var(--gold); }
+    .plan-premium h4 { color: var(--yellow); }
+    .plan-premium ul { color: rgba(251,250,246,.8); }
+    .plan-premium .price small { color: rgba(251,250,246,.55); }
+    .price-note { font-size: .88rem; color: var(--grey); margin: 18px 0 70px; }
+    .carte { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .carte-col { border-top: 2px solid var(--black); padding-top: 18px; }
+    .carte-col h4 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.15rem; margin: 0 0 8px; }
+    .carte-col h4 span { font-family: var(--sans); font-weight: 500; text-transform: none; font-size: .82rem; color: var(--grey); margin-left: 6px; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid #e3ded1; }
+    .row em { display: block; font-style: normal; font-size: .82rem; color: var(--grey); }
+    .row b { font-family: var(--display); font-weight: 800; font-size: 1.35rem; white-space: nowrap; }
+
+    /* ---------- Instagram ---------- */
+    .insta-btn { display: inline-flex; align-items: center; gap: 10px; }
+    .insta-btn svg { width: 18px; height: 18px; }
+    .grid a { display: block; width: 100%; height: 100%; position: relative; }
+    .grid .play { position: absolute; top: 12px; right: 12px; color: #fff; font-size: .8rem; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+    .insta-handle { font-family: var(--serif); font-style: italic; color: #9c7429; }
+
+    /* ---------- Équipe ---------- */
+    .team { padding: 130px 0; background: var(--paper); }
+    .team .container { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
+    .team-img { position: relative; background: var(--black); }
+    .team-img img { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: 50% 28%; }
+    .team-img figcaption { position: absolute; left: 0; bottom: 0; background: var(--yellow); color: var(--black); padding: 10px 18px; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: .85rem; letter-spacing: .06em; }
+    .team h2 { margin: 18px 0 22px; }
+    .people { display: grid; gap: 26px; margin-top: 34px; }
+    .person { display: grid; grid-template-columns: auto 1fr; gap: 20px; padding-top: 24px; border-top: 1px solid #d9d3c3; }
+    .person .initial { width: 54px; height: 54px; display: grid; place-items: center; background: var(--black); color: var(--yellow); font-family: var(--display); font-weight: 900; font-size: 1.3rem; }
+    .person h3 { font-size: 1.35rem; }
+    .person .role { display: block; font-family: var(--serif); font-style: italic; color: #9c7429; margin: 4px 0 8px; }
+    .person p { margin: 0; color: #4b4943; }
+
+    /* ---------- Galerie ---------- */
+    .gallery { padding: 130px 0; background: var(--white); }
+    .gallery-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
+    .gallery-head p { max-width: 40ch; color: #4b4943; margin: 0; }
+    .grid { margin-top: 50px; display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 230px; grid-auto-flow: dense; }
+    .grid figure { margin: 0; position: relative; overflow: hidden; background: var(--ink); }
+    .grid img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: transform .8s, filter .8s; }
+    .grid figure:hover img { transform: scale(1.04); filter: grayscale(0); }
+    .grid figure::after { content: ""; position: absolute; inset: 0; border: 1px solid transparent; transition: border-color .4s; }
+    .grid figure:hover::after { border-color: var(--yellow); }
+    .g-big { grid-column: span 2; grid-row: span 2; }
+    .g-tall { grid-row: span 2; }
+    .g-wide { grid-column: span 2; }
+
+    /* ---------- Contact ---------- */
+    .cta { background: var(--black); color: var(--white); padding: 130px 0; position: relative; overflow: hidden; }
+    .cta::before { content: ""; position: absolute; width: 620px; height: 620px; right: -220px; top: -260px; border-radius: 50%; border: 1px solid rgba(201,162,74,.35); }
+    .cta .container { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 100px); }
+    .cta h2 { margin: 18px 0 22px; }
+    .cta p { color: rgba(251,250,246,.72); max-width: 44ch; margin: 0 0 30px; }
+    .infos { display: grid; gap: 14px; margin-top: 40px; font-size: .95rem; }
+    .infos div { display: flex; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .infos dt { color: var(--gold); min-width: 92px; }
+    .infos dd { margin: 0; }
+    .form { display: grid; gap: 14px; align-content: start; background: var(--ink); border: 1px solid var(--line); padding: clamp(26px, 4vw, 44px); }
+    .form h3 { font-size: 1.3rem; margin-bottom: 6px; }
+    .form label { display: grid; gap: 7px; font-size: .84rem; color: rgba(251,250,246,.7); }
+    .form input, .form select, .form textarea {
+      font: inherit; font-size: .98rem; padding: 13px 14px; background: var(--black); color: var(--white);
+      border: 1px solid var(--line); border-radius: 2px; resize: vertical;
+    }
+    .form input:focus, .form select:focus, .form textarea:focus { outline: none; border-color: var(--yellow); }
+    .form .btn { justify-content: center; margin-top: 6px; }
+
+    /* ---------- Footer ---------- */
+    footer { background: var(--black); color: var(--white); border-top: 1px solid var(--line); padding: 54px 0 36px; }
+    footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; }
+    footer .slogan { font-family: var(--serif); font-style: italic; font-size: 1.15rem; }
+    footer ul { display: flex; flex-wrap: wrap; gap: 24px; list-style: none; padding: 0; margin: 0; font-size: .92rem; }
+    footer ul a { text-decoration: none; opacity: .7; } footer ul a:hover { opacity: 1; color: var(--yellow); }
+    footer small { width: 100%; color: rgba(251,250,246,.45); padding-top: 22px; border-top: 1px solid var(--line); }
+
+    /* Apparition au défilement */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s, transform .9s cubic-bezier(.2,.7,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 960px) {
+      .nav ul, .hero-stats { display: none; }
+      .logo img { height: 50px; }
+      .everyone .container, .team .container, .cta .container, .offer-grid { grid-template-columns: 1fr; }
+      .disciplines { grid-template-columns: 1fr 1fr; }
+      .badge { left: 12px; }
+      .everyone-img::before { inset: 14px -10px -14px 10px; }
+      .grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; }
+      .plans { grid-template-columns: 1fr 1fr; }
+      .plan, .plan:nth-child(4) { grid-column: span 1; }
+      .plan:nth-child(5) { grid-column: span 2; }
+      .carte { grid-template-columns: 1fr; gap: 34px; }
+    }
+    @media (max-width: 560px) {
+      .disciplines { grid-template-columns: 1fr; }
+      .plans { grid-template-columns: 1fr; }
+      .plan, .plan:nth-child(4), .plan:nth-child(5) { grid-column: span 1; }
+      .trio strong { font-size: 1.1rem; }
+      .nav .btn { padding: .8em 1.1em; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="#" class="logo"><img src="images/logo-clair.png" alt="Turagiye Coaching"></a>
+      <ul>
+        <li><a href="#studio">Le studio</a></li>
+        <li><a href="#offres">Nos séances</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#equipe">L'équipe</a></li>
+        <li><a href="#instagram">Instagram</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener" class="btn btn-yellow">Réserver</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <img class="hero-img" src="images/hero-cours-collectif.jpg" alt="Cours collectif au studio Turagiye Coaching">
+    <div class="container hero-content">
+      <span class="eyebrow rise">Local de coaching sportif à Panazol / Limoges</span>
+      <h1 class="rise">Vivez le sport <span class="hl">autrement</span><span class="gold-text">avec Turagiye Coaching</span></h1>
+      <p class="rise">Coaching individuel, cours collectifs et préparation physique dans un studio à taille humaine. Tout âge, tout niveau, tout objectif : on vous accompagne, vraiment.</p>
+      <div class="hero-actions rise">
+        <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener" class="btn btn-yellow">Réserver une séance →</a>
+        <a href="#offres" class="btn btn-line">Découvrir nos séances</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><strong>Tout âge</strong><span>des enfants aux seniors</span></div>
+      <div><strong>Tout niveau</strong><span>débutant comme confirmé</span></div>
+      <div><strong>Tout objectif</strong><span>santé, forme, performance</span></div>
+    </div>
+  </header>
+
+  <!-- Bandeau des disciplines -->
+  <div class="marquee" aria-label="Nos disciplines">
+    <div class="marquee-track">
+      <span>Coaching individuel</span><span>CrossFit</span><span>Hyrox</span><span>Renforcement musculaire</span><span>Cuisses Abdos Fessiers</span><span>Pilates</span><span>Préparation physique</span>
+      <span aria-hidden="true">Coaching individuel</span><span aria-hidden="true">CrossFit</span><span aria-hidden="true">Hyrox</span><span aria-hidden="true">Renforcement musculaire</span><span aria-hidden="true">Cuisses Abdos Fessiers</span><span aria-hidden="true">Pilates</span><span aria-hidden="true">Préparation physique</span>
+    </div>
+  </div>
+
+  <!-- Pour tout le monde -->
+  <section class="everyone" id="studio">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Le studio</span>
+        <h2>Un studio pour <span class="gold-text">chacun</span></h2>
+        <p class="lead">Chez Turagiye Coaching, il n'y a pas de profil type. Vous débutez, vous reprenez après une blessure ou vous visez une compétition ? Chaque séance part de vous, de votre corps et de votre objectif, dans une ambiance bienveillante où l'on se connaît par son prénom.</p>
+        <div class="trio">
+          <div><strong>Tout âge</strong><span>Enfants, adultes, seniors</span></div>
+          <div><strong>Tout niveau</strong><span>Du premier pas à la compétition</span></div>
+          <div><strong>Tout objectif</strong><span>Un suivi adapté à chacun</span></div>
+        </div>
+        <ul class="goals">
+          <li>Hyrox</li><li>Course à pied</li><li>Perte de poids</li><li>Prise de masse</li><li>Réathlétisation</li><li>Remise en forme</li>
+        </ul>
+      </div>
+      <div class="everyone-img reveal">
+        <img src="images/coaching-enfant.jpg" alt="Séance de coaching avec une enfant au studio" loading="lazy">
+        <div class="badge"><b>Proche de vous</b>Petits groupes et suivi personnalisé, pour que personne ne soit laissé de côté.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offres -->
+  <section class="offers" id="offres">
+    <div class="container">
+      <div class="offers-head reveal">
+        <div>
+          <span class="eyebrow">Nos séances</span>
+          <h2 style="margin-top:18px">Deux façons de <span class="gold-text">progresser</span></h2>
+        </div>
+        <p>Seul avec votre coach ou porté par l'énergie du groupe : choisissez la formule qui vous ressemble, ou combinez les deux.</p>
+      </div>
+
+      <div class="offer-grid">
+        <article class="offer reveal">
+          <div class="offer-img"><img src="images/coaching-individuel.jpg" alt="Squat à la barre en coaching individuel" loading="lazy" style="object-position:50% 38%"></div>
+          <div class="offer-body">
+            <span class="num">01</span>
+            <h3>Coaching individuel</h3>
+            <p>Un coach entièrement dédié à vous. Programme sur mesure, correction technique et suivi de vos progrès séance après séance.</p>
+            <ul>
+              <li>Bilan et objectifs définis ensemble</li>
+              <li>Programme 100 % personnalisé</li>
+              <li>Idéal pour la réathlétisation et les objectifs précis</li>
+            </ul>
+            <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener" class="btn btn-yellow">Réserver mon coaching →</a>
+          </div>
+        </article>
+        <article class="offer reveal">
+          <div class="offer-img"><img src="images/cours-collectifs.jpg" alt="Cours collectif au studio" loading="lazy" style="object-position:50% 35%"></div>
+          <div class="offer-body">
+            <span class="num">02</span>
+            <h3>Cours collectifs</h3>
+            <p>Des séances en petit groupe, encadrées de près, pour se dépasser ensemble dans la bonne humeur. Un vrai planning varié chaque semaine.</p>
+            <ul>
+              <li>CrossFit, Hyrox, renforcement, CAF, Pilates</li>
+              <li>Préparation physique</li>
+              <li>8 personnes maximum par cours</li>
+            </ul>
+            <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener" class="btn btn-yellow">Voir le planning →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="disciplines reveal">
+        <div class="disc"><span class="n">CrossFit</span><h4>Intensité</h4><p>Mouvements fonctionnels variés pour développer force, cardio et explosivité.</p></div>
+        <div class="disc"><span class="n">Hyrox</span><h4>Endurance</h4><p>Course, rameur, wall balls, sled… pour se préparer aux épreuves Hyrox.</p></div>
+        <div class="disc"><span class="n">Renforcement</span><h4>Force</h4><p>Un travail musculaire complet et progressif, accessible à tous.</p></div>
+        <div class="disc"><span class="n">CAF</span><h4>Cuisses Abdos Fessiers</h4><p>Ciblé, efficace et rythmé pour tonifier le bas du corps et la sangle abdominale.</p></div>
+        <div class="disc"><span class="n">Pilates</span><h4>Contrôle</h4><p>Posture, gainage profond et mobilité pour un corps plus fort et plus libre.</p></div>
+        <div class="disc star"><span class="n">Préparation physique</span><h4>Performance</h4><p>Des cours encadrés par Aymar, préparateur physique, pour gagner en performance et prévenir les blessures.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs -->
+  <section class="pricing" id="tarifs">
+    <div class="container">
+      <div class="pricing-head reveal">
+        <div>
+          <span class="eyebrow">Tarifs</span>
+          <h2 style="margin-top:18px">Une formule pour <span class="gold-text">chaque rythme</span></h2>
+        </div>
+        <p>Abonnement ou séances à la carte : choisissez ce qui vous convient. Réservation et paiement en ligne sur Feelup.</p>
+      </div>
+
+      <h3 class="price-group reveal">Abonnements</h3>
+      <div class="plans">
+        <article class="plan reveal">
+          <span class="cat">Cours collectifs · max. 8 pers.</span>
+          <h4>2 séances / semaine</h4>
+          <div class="price">69,99 €<small>/mois</small></div>
+          <ul><li>Soit 8,60 € la séance</li><li>Engagement 12 mois</li></ul>
+          <a class="btn btn-black" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Souscrire</a>
+        </article>
+        <article class="plan reveal">
+          <span class="cat">Cours collectifs · max. 8 pers.</span>
+          <h4>Séances illimitées</h4>
+          <div class="price">99,99 €<small>/mois</small></div>
+          <ul><li>Accès illimité aux cours collectifs</li><li>Engagement 12 mois</li></ul>
+          <a class="btn btn-black" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Souscrire</a>
+        </article>
+        <article class="plan reveal">
+          <span class="cat">Coaching individuel</span>
+          <h4>2 séances / semaine</h4>
+          <div class="price">360 €<small>/mois</small></div>
+          <ul><li>2 coachings individuels par semaine</li><li>Engagement 6 mois</li></ul>
+          <a class="btn btn-black" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Souscrire</a>
+        </article>
+        <article class="plan reveal">
+          <span class="cat">Coaching mixte</span>
+          <h4>Formule Essentiel</h4>
+          <div class="price">230 €<small>/mois</small></div>
+          <ul><li>1 coaching individuel + 2 cours collectifs par semaine</li><li>Engagement 6 mois</li></ul>
+          <a class="btn btn-black" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Souscrire</a>
+        </article>
+        <article class="plan plan-premium reveal">
+          <span class="cat">Coaching mixte · pour 2 personnes</span>
+          <h4>Formule Premium</h4>
+          <div class="price">390 €<small>/mois</small></div>
+          <ul><li>2 coachings individuels par semaine (à 1 ou 2 personnes)</li><li>Cours collectifs illimités</li><li>Engagement 6 mois</li></ul>
+          <a class="btn btn-yellow" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Souscrire</a>
+        </article>
+      </div>
+      <p class="price-note reveal">Frais d'inscription de 50 € pour tous les abonnements, à régler lors de la première visite.</p>
+
+      <h3 class="price-group reveal">À la carte</h3>
+      <div class="carte reveal">
+        <div class="carte-col">
+          <h4>Cours collectifs <span>max. 8 pers.</span></h4>
+          <div class="row"><span>Séance à l'unité</span><b>25 €</b></div>
+          <div class="row"><span>Carte 10 séances <em>soit 20 € la séance</em></span><b>200 €</b></div>
+        </div>
+        <div class="carte-col">
+          <h4>Coaching individuel</h4>
+          <div class="row"><span>Séance à l'unité</span><b>60 €</b></div>
+          <div class="row"><span>Carte 10 séances <em>soit 50 € la séance</em></span><b>500 €</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Équipe -->
+  <section class="team" id="equipe">
+    <div class="container">
+      <figure class="team-img reveal" style="margin:0">
+        <img src="images/melissa-aymar.jpg" alt="Aymar et Mélissa, l'équipe Turagiye Coaching" loading="lazy">
+        <figcaption>Aymar &amp; Mélissa</figcaption>
+      </figure>
+      <div class="reveal">
+        <span class="eyebrow">L'équipe</span>
+        <h2>L'humain <span class="gold-text">avant tout</span></h2>
+        <p class="lead">Turagiye Coaching, c'est avant tout un duo. Une même envie : que chaque personne qui pousse la porte du studio se sente accueillie, écoutée et accompagnée.</p>
+        <div class="people">
+          <div class="person">
+            <span class="initial">A</span>
+            <div>
+              <h3>Aymar</h3>
+              <span class="role">Coach sportif &amp; préparateur physique</span>
+              <p>Il construit vos séances, corrige chaque mouvement et vous pousse au bon moment. De la remise en forme à la préparation Hyrox, il adapte tout à votre corps et à votre objectif.</p>
+            </div>
+          </div>
+          <div class="person">
+            <span class="initial">M</span>
+            <div>
+              <h3>Mélissa</h3>
+              <span class="role">Gestion &amp; relation adhérents</span>
+              <p>Elle fait tourner le studio au quotidien : accueil, organisation, plannings et communication. C'est elle qui veille à ce que tout soit simple pour vous.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram : dernières publications -->
+  <section class="gallery" id="instagram">
+    <div class="container">
+      <div class="gallery-head reveal">
+        <div>
+          <span class="eyebrow">Instagram</span>
+          <h2 style="margin-top:18px">La vie du <span class="gold-text">studio</span></h2>
+        </div>
+        <div>
+          <p style="margin-bottom:18px">Séances, coulisses et progrès de nos adhérents : suivez-nous sur <span class="insta-handle">@turagiye_coaching</span>.</p>
+          <a class="btn btn-black insta-btn" href="https://www.instagram.com/turagiye_coaching/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            Suivre sur Instagram
+          </a>
+        </div>
+      </div>
+      <!-- Les dernières publications remplacent automatiquement ces photos dès que INSTAGRAM_FEED_URL est renseigné (voir le script en bas de page) -->
+      <div class="grid reveal" id="insta-grid">
+        <figure class="g-big"><img src="images/briefing.jpg" alt="Présentation de la séance du jour" loading="lazy"></figure>
+        <figure><img src="images/hyrox-wallballs.jpg" alt="Wall balls en cours collectif" loading="lazy" style="object-position:50% 30%"></figure>
+        <figure class="g-tall"><img src="images/aymar-melissa.jpg" alt="Aymar et Mélissa" loading="lazy" style="object-position:50% 35%"></figure>
+        <figure><img src="images/tee-shirt.jpg" alt="Tee-shirt Turagiye Coaching" loading="lazy" style="object-position:50% 60%"></figure>
+        <figure class="g-wide"><img src="images/gainage.jpg" alt="Gainage en cours collectif" loading="lazy" style="object-position:50% 55%"></figure>
+        <figure class="g-wide"><img src="images/hyrox-training-club.jpg" alt="Hyrox Training Club au studio" loading="lazy" style="object-position:50% 40%"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="cta" id="contact">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Nous rejoindre</span>
+        <h2>Prêt à vivre le sport <span class="gold-text">autrement&nbsp;?</span></h2>
+        <p>Réservez directement votre séance en ligne, ou laissez-nous un message : on vous répond personnellement pour trouver la formule qui vous correspond.</p>
+        <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener" class="btn btn-yellow">Réserver sur Feelup →</a>
+        <dl class="infos">
+          <div><dt>Adresse</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=2+Rue+Antoine+de+Saint-Exup%C3%A9ry+87350+Panazol" target="_blank" rel="noopener">2 rue Antoine de Saint-Exupéry<br>87350 Panazol (Limoges)</a></dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+33519878263">05 19 87 82 63</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:turagiye.coaching@gmail.com">turagiye.coaching@gmail.com</a></dd></div>
+          <div><dt>Réseaux</dt><dd><a href="https://www.instagram.com/turagiye_coaching/" target="_blank" rel="noopener">@turagiye_coaching</a></dd></div>
+        </dl>
+      </div>
+      <form class="form reveal" id="contact-form">
+        <h3>Écrivez-nous</h3>
+        <label>Prénom et nom<input name="name" type="text" required autocomplete="name"></label>
+        <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+        <label>Votre objectif
+          <select name="goal">
+            <option>Remise en forme</option>
+            <option>Perte de poids</option>
+            <option>Prise de masse</option>
+            <option>Hyrox</option>
+            <option>Course à pied</option>
+            <option>Réathlétisation</option>
+            <option>Préparation physique</option>
+            <option>Autre</option>
+          </select>
+        </label>
+        <label>Message<textarea name="message" rows="4" required></textarea></label>
+        <button class="btn btn-yellow" type="submit">Envoyer mon message →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Pied de page -->
+  <footer>
+    <div class="container">
+      <a href="#" class="logo"><img src="images/logo-clair.png" alt="Turagiye Coaching"></a>
+      <span class="slogan gold-text">Vivez le sport autrement, avec Turagiye Coaching</span>
+      <ul>
+        <li><a href="https://www.instagram.com/turagiye_coaching/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/p/Turagiye-Coaching-100078954837869/" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.tiktok.com/@melissaymar" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://fr.linkedin.com/company/turagiye-coaching" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+      <small>© <span id="year"></span> Turagiye Coaching · Panazol / Limoges</small>
+    </div>
+  </footer>
+
+  <script>
+    const CONTACT_EMAIL = "turagiye.coaching@gmail.com";
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Formulaire de contact : ouvre un e-mail prérempli
+    document.getElementById("contact-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = e.target;
+      const subject = `Contact site — ${f.name.value} (${f.goal.value})`;
+      const body = `${f.message.value}\n\nObjectif : ${f.goal.value}\n— ${f.name.value} (${f.email.value})`;
+      location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    // ---------- Instagram : dernières publications ----------
+    // Collez ici l'adresse du flux Behold (behold.so), par ex. "https://feeds.behold.so/XXXXXXXX".
+    // Tant qu'elle est vide, la galerie affiche les photos du studio.
+    const INSTAGRAM_FEED_URL = "";
+    const INSTAGRAM_PROFILE = "https://www.instagram.com/turagiye_coaching/";
+
+    async function loadInstagram() {
+      if (!INSTAGRAM_FEED_URL) return;
+      try {
+        const res = await fetch(INSTAGRAM_FEED_URL);
+        if (!res.ok) return;
+        const data = await res.json();
+        const posts = (Array.isArray(data) ? data : data.posts || []).slice(0, 6);
+        if (!posts.length) return;
+        const layout = ["g-big", "", "g-tall", "", "g-wide", "g-wide"];
+        const grid = document.getElementById("insta-grid");
+        grid.innerHTML = "";
+        posts.forEach((p, i) => {
+          const img = (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) ||
+                      (p.mediaType === "VIDEO" ? p.thumbnailUrl : p.mediaUrl) || p.thumbnailUrl;
+          if (!img) return;
+          const fig = document.createElement("figure");
+          if (layout[i]) fig.className = layout[i];
+          const a = document.createElement("a");
+          a.href = p.permalink || INSTAGRAM_PROFILE;
+          a.target = "_blank"; a.rel = "noopener";
+          const im = document.createElement("img");
+          im.src = img; im.loading = "lazy";
+          im.alt = (p.prunedCaption || p.caption || "Publication Instagram Turagiye Coaching").slice(0, 120);
+          a.appendChild(im);
+          if (p.mediaType === "VIDEO") { const s = document.createElement("span"); s.className = "play"; s.textContent = "▶ Vidéo"; a.appendChild(s); }
+          fig.appendChild(a);
+          grid.appendChild(fig);
+        });
+      } catch (err) { /* en cas de souci, on garde les photos du studio */ }
+    }
+    loadInstagram();
+
+    // Apparition des sections au défilement
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

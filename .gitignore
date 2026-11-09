@@ -1,0 +1,11 @@
+# Fichiers système et outils
+.DS_Store
+.claude/
+.agents/
+skills-lock.json
+
+# Photos originales (trop lourdes) : le site utilise les versions allégées du dossier images/
+/*.jpg
+/*.JPG
+/*.jpeg
+/*.png
