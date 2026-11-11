@@ -1,0 +1,7 @@
+# Turagiye Coaching — salle de sport à Panazol / Limoges
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+Disallow: /ancien-site/
+
+Sitemap: https://turagiyecoaching.fr/sitemap.xml
