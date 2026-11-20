@@ -19,7 +19,9 @@
 
 ## Pages
 
-- [Accueil](https://turagiyecoaching.fr/) : présentation, séances, tarifs, équipe, FAQ, contact
+- [Accueil](https://turagiyecoaching.fr/) : présentation, séances, tarifs, équipe, blog, FAQ, contact
+- [Blog](https://turagiyecoaching.fr/blog/) : conseils d'entraînement et vie du studio
+- [Hyrox : comment se préparer à sa première course](https://turagiyecoaching.fr/blog/preparer-son-premier-hyrox.html)
 - [Mentions légales](https://turagiyecoaching.fr/mentions-legales.html)
 - [Politique de confidentialité](https://turagiyecoaching.fr/confidentialite.html)
 - [Instagram](https://www.instagram.com/turagiye_coaching/)
