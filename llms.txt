@@ -20,6 +20,8 @@
 ## Pages
 
 - [Accueil](https://turagiyecoaching.fr/) : présentation, séances, tarifs, équipe, blog, FAQ, contact
+- [Salle de sport à Limoges](https://turagiyecoaching.fr/salle-de-sport-limoges.html) : cours collectifs coachés, disciplines, tarifs, accès
+- [Coach sportif à Limoges](https://turagiyecoaching.fr/coach-sportif-limoges.html) : coaching individuel, déroulé, tarifs
 - [Blog](https://turagiyecoaching.fr/blog/) : conseils d'entraînement et vie du studio
 - [Hyrox : comment se préparer à sa première course](https://turagiyecoaching.fr/blog/preparer-son-premier-hyrox.html)
 - [Mentions légales](https://turagiyecoaching.fr/mentions-legales.html)

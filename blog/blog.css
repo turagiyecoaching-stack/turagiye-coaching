@@ -118,3 +118,29 @@ footer small a{color:rgba(251,250,246,.6);margin-right:16px}
   .cta-box{padding:34px 26px}
   .week td:first-child{white-space:normal}
 }
+
+/* Pages locales (salle de sport / coach sportif Limoges) */
+.lp-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding-bottom:50px}
+.lp-actions .link{color:var(--white);opacity:.8;font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:10px 0 0;border-top:1px solid #e3ded1;border-left:1px solid #e3ded1}
+.facts div{padding:20px 18px;border-right:1px solid #e3ded1;border-bottom:1px solid #e3ded1;background:#fff}
+.facts b{display:block;font-family:var(--display);font-weight:900;font-size:1.5rem;text-transform:uppercase;line-height:1.1}
+.facts span{font-size:.86rem;color:var(--grey)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.cards div{background:#fff;border:1px solid #e3ded1;padding:22px 22px 24px}
+.cards b{display:block;font-family:var(--display);text-transform:uppercase;font-size:1.05rem;margin-bottom:6px}
+.cards p{margin:0;font-size:.97rem}
+.photo{margin:40px 0}
+.photo img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.photo figcaption{font-size:.84rem;color:var(--grey);margin-top:8px}
+.faq-lp details{border-bottom:1px solid #e3ded1}
+.faq-lp details:first-of-type{border-top:1px solid #e3ded1}
+.faq-lp summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:1.02rem}
+.faq-lp summary::-webkit-details-marker{display:none}
+.faq-lp summary::after{content:"+";color:var(--gold-dark);font-family:var(--sans);font-size:1.3rem;line-height:1}
+.faq-lp details[open] summary::after{content:"–"}
+.faq-lp details p{margin:-4px 0 22px}
+.see-also{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.see-also a{padding:.55em 1.1em;border:1px solid var(--black);border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:500}
+.see-also a:hover{background:var(--yellow);border-color:var(--yellow)}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr}}
