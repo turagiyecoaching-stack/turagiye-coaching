@@ -271,7 +271,8 @@
     .wk-grid .dh.today { color: var(--yellow); }
     .wk-grid .dh.today::after { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); margin-left: 8px; vertical-align: middle; }
     .wk-grid .hr { font-family: var(--display); font-weight: 800; font-size: .9rem; color: rgba(251,250,246,.5); padding-top: 14px; }
-    .wk-class { display: block; height: 100%; text-decoration: none; background: #1d1d1d; border: 1px solid rgba(255,255,255,.08); border-left: 3px solid var(--c); padding: 12px 10px 13px; transition: transform .2s, background .2s, border-color .2s, opacity .25s; }
+    .wk-grid > div:not(.dh):not(.hr) { display: grid; gap: 6px; align-content: start; }
+    .wk-class { display: block; text-decoration: none; background: #1d1d1d; border: 1px solid rgba(255,255,255,.08); border-left: 3px solid var(--c); padding: 12px 10px 13px; transition: transform .2s, background .2s, border-color .2s, opacity .25s; }
     .wk-class:hover { transform: translateY(-2px); background: #252525; border-color: var(--gold); border-left-color: var(--c); }
     .wk-class b { display: block; font-family: var(--display); font-weight: 800; font-size: .92rem; text-transform: uppercase; line-height: 1.15; }
     .wk-class span { display: block; font-size: .78rem; color: rgba(251,250,246,.55); margin-top: 4px; }
@@ -582,12 +583,12 @@
           <span class="eyebrow">Planning</span>
           <h2 style="margin-top:18px">Les cours de <span class="gold-text">la semaine</span></h2>
         </div>
-        <p>Midi, fin d'après-midi ou soir : trouvez le cours collectif qui rentre dans votre emploi du temps. 8 personnes maximum par cours, tous niveaux.</p>
+        <p>Du matin au soir : trouvez le cours collectif ou le créneau de coaching individuel qui rentre dans votre emploi du temps. 8 personnes maximum par cours collectif, tous niveaux.</p>
       </div>
       <div class="wk-filters reveal" role="group" aria-label="Filtrer par discipline" id="wk-filters"></div>
       <div class="wk-grid reveal" id="wk-grid"></div>
       <div class="wk-list" id="wk-list"></div>
-      <p class="wk-note">Planning habituel des cours collectifs, susceptible d'évoluer pendant les vacances. Le coaching individuel se réserve sur d'autres créneaux, du lundi au vendredi. Places disponibles en temps réel sur <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Feelup</a>.</p>
+      <p class="wk-note">Planning habituel, susceptible d'évoluer pendant les vacances. Le coaching individuel se fait seul avec le coach, sur réservation. Places disponibles en temps réel sur <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Feelup</a>.</p>
       <div class="actions">
         <a class="btn btn-yellow" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Réserver un cours →</a>
         <a class="btn btn-line" href="blog/renforcement-musculaire-tout-age.html">Pourquoi le renforcement ?</a>
@@ -898,7 +899,8 @@
         hyrox: { name: "Hyrox", c: "#b7dd6a" },
         caf:   { name: "Cuisses Abdos Fessiers", c: "#d36b5a" },
         prepa: { name: "Préparation physique", c: "#c99be6" },
-        pilates: { name: "Pilates", c: "#6cc6f0" }
+        pilates: { name: "Pilates", c: "#6cc6f0" },
+        perso: { name: "Coaching individuel", c: "#c9a24a" }
       };
       const CLASSES = [
         { d: 1, t: "12:15", e: "13:15", k: "cross" }, { d: 1, t: "17:10", e: "18:10", k: "renfo" }, { d: 1, t: "18:15", e: "19:15", k: "cross" }, { d: 1, t: "19:15", e: "20:15", k: "renfo" },
@@ -906,6 +908,15 @@
         { d: 3, t: "12:15", e: "13:15", k: "hyrox" }, { d: 3, t: "15:00", e: "16:00", k: "prepa" }, { d: 3, t: "17:10", e: "18:10", k: "renfo" }, { d: 3, t: "18:15", e: "19:15", k: "cross" }, { d: 3, t: "19:15", e: "20:15", k: "hyrox" },
         { d: 4, t: "12:15", e: "13:15", k: "renfo" }, { d: 4, t: "17:10", e: "18:10", k: "cross" }, { d: 4, t: "18:15", e: "19:15", k: "renfo" }, { d: 4, t: "19:15", e: "20:15", k: "hyrox" },
         { d: 5, t: "12:15", e: "13:15", k: "hyrox" }, { d: 5, t: "17:10", e: "18:10", k: "renfo" }, { d: 5, t: "18:15", e: "19:15", k: "hyrox" },
+        // Coaching individuel (1 personne, sur réservation)
+        ...[1, 2, 3, 4, 5].flatMap((d) => [["09:00", "10:00"], ["10:00", "11:00"], ["11:00", "12:00"], ["16:00", "17:00"]].map(([t, e]) => ({ d, t, e, k: "perso" }))),
+        ...[1, 2, 4, 5].map((d) => ({ d, t: "15:00", e: "16:00", k: "perso" })),
+        { d: 1, t: "18:15", e: "19:15", k: "perso" }, { d: 1, t: "19:15", e: "20:15", k: "perso" }, { d: 1, t: "20:15", e: "21:15", k: "perso" },
+        { d: 2, t: "20:15", e: "21:15", k: "perso" },
+        { d: 3, t: "18:15", e: "19:15", k: "perso" },
+        { d: 4, t: "20:15", e: "21:15", k: "perso" },
+        { d: 5, t: "19:15", e: "20:15", k: "perso" }, { d: 5, t: "20:15", e: "21:15", k: "perso" },
+        { d: 6, t: "08:00", e: "09:00", k: "perso" },
         { d: 6, t: "09:00", e: "10:00", k: "pilates" }, { d: 6, t: "10:00", e: "11:00", k: "prepa" }, { d: 6, t: "11:00", e: "12:00", k: "cross" }
       ];
       const DAYS = ["", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
@@ -939,7 +950,7 @@
         const hr = document.createElement("div"); hr.className = "hr"; hr.textContent = fmt(t); grid.appendChild(hr);
         for (let d = 1; d <= 6; d++) {
           const cell = document.createElement("div");
-          CLASSES.filter((x) => x.d === d && x.t === t).forEach((x) => cell.appendChild(make(x)));
+          CLASSES.filter((x) => x.d === d && x.t === t).sort((a, b) => (a.k === "perso") - (b.k === "perso")).forEach((x) => cell.appendChild(make(x)));
           grid.appendChild(cell);
         }
       });
@@ -949,7 +960,7 @@
       for (let d = 1; d <= 6; d++) {
         const day = document.createElement("div"); day.className = "wk-day" + (d === today ? " today" : "");
         day.innerHTML = `<h4>${DAYS[d]}</h4><div class="items"></div>`;
-        CLASSES.filter((x) => x.d === d).forEach((x) => day.querySelector(".items").appendChild(make(x)));
+        CLASSES.filter((x) => x.d === d).sort((a, b) => a.t.localeCompare(b.t) || (a.k === "perso") - (b.k === "perso")).forEach((x) => day.querySelector(".items").appendChild(make(x)));
         list.appendChild(day);
       }
 
