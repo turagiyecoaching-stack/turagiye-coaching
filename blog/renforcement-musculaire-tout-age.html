@@ -18,7 +18,7 @@
   <meta property="article:published_time" content="2026-11-24">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../fonts/fonts.css?v=20261124">
-  <link rel="stylesheet" href="blog.css?v=20261124">
+  <link rel="stylesheet" href="blog.css?v=20261124b">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -241,20 +241,47 @@
     const box = document.getElementById("days");
     const today = new Date().getDay();
 
+    const makeSlot = (s) => {
+      const a = document.createElement("a");
+      a.className = "slot"; a.href = BOOK; a.target = "_blank"; a.rel = "noopener";
+      a.dataset.m = moment(s.start);
+      a.innerHTML = `<span class="t">${fmt(s.start)} – ${fmt(s.end)}</span><span class="n">Renforcement musculaire</span><span class="r">Réserver →</span>`;
+      a.setAttribute("aria-label", `Réserver le cours de renforcement du ${DAYS[s.d].toLowerCase()} de ${fmt(s.start)} à ${fmt(s.end)}`);
+      return a;
+    };
+
+    // Ordinateur : grille alignée par moment de la journée (midi, fin d'après-midi, soir)
+    const MOMENTS = { midi: "Midi", fin: "Fin d'après-midi", soir: "Soir" };
+    const grid = document.createElement("div");
+    grid.className = "days-grid";
+    grid.appendChild(document.createElement("span"));
+    Object.keys(DAYS).forEach((d) => {
+      const h = document.createElement("h4");
+      h.textContent = DAYS[d];
+      if (+d === today) h.className = "today";
+      grid.appendChild(h);
+    });
+    Object.keys(MOMENTS).forEach((m) => {
+      const lab = document.createElement("span");
+      lab.className = "row-label"; lab.dataset.m = m; lab.textContent = MOMENTS[m];
+      grid.appendChild(lab);
+      Object.keys(DAYS).forEach((d) => {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        SLOTS.filter((s) => s.d === +d && moment(s.start) === m).forEach((s) => cell.appendChild(makeSlot(s)));
+        grid.appendChild(cell);
+      });
+    });
+    box.parentNode.insertBefore(grid, box);
+
+    // Mobile : liste jour par jour
     Object.keys(DAYS).forEach((d) => {
       d = +d;
       const col = document.createElement("div");
       col.className = "day" + (d === today ? " today" : "");
       col.innerHTML = `<h4>${DAYS[d]}</h4><div class="slots"></div>`;
       const list = col.querySelector(".slots");
-      SLOTS.filter((s) => s.d === d).forEach((s) => {
-        const a = document.createElement("a");
-        a.className = "slot"; a.href = BOOK; a.target = "_blank"; a.rel = "noopener";
-        a.dataset.m = moment(s.start);
-        a.innerHTML = `<span class="t">${fmt(s.start)} – ${fmt(s.end)}</span><span class="n">Renforcement musculaire</span><span class="r">Réserver →</span>`;
-        a.setAttribute("aria-label", `Réserver le cours de renforcement du ${DAYS[d].toLowerCase()} de ${fmt(s.start)} à ${fmt(s.end)}`);
-        list.appendChild(a);
-      });
+      SLOTS.filter((s) => s.d === d).forEach((s) => list.appendChild(makeSlot(s)));
       const empty = document.createElement("p"); empty.className = "empty"; empty.textContent = "Pas de cours sur ce moment"; empty.hidden = true;
       list.appendChild(empty);
       box.appendChild(col);
@@ -269,6 +296,11 @@
           let shown = 0;
           col.querySelectorAll(".slot").forEach((s) => { const ok = f === "all" || s.dataset.m === f; s.classList.toggle("hidden", !ok); shown += ok; });
           col.querySelector(".empty").hidden = shown > 0;
+        });
+        document.querySelectorAll(".days-grid .row-label").forEach((lab) => {
+          const hide = f !== "all" && lab.dataset.m !== f;
+          let el = lab;
+          for (let i = 0; i <= 5; i++) { el.hidden = hide; el = el.nextElementSibling; if (!el) break; }
         });
       });
     });

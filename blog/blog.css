@@ -166,7 +166,14 @@ footer small a{color:rgba(251,250,246,.6);margin-right:16px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .filters button{font:inherit;font-size:.86rem;font-weight:500;padding:.5em 1em;border-radius:999px;border:1px solid rgba(251,250,246,.25);background:transparent;color:var(--white);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .filters button[aria-pressed="true"]{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
-.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.days{display:none}
+.days-grid{display:grid;grid-template-columns:auto repeat(5,minmax(0,1fr));gap:8px;align-items:start}
+.days-grid h4{margin:0 0 4px;font-family:var(--display);text-transform:uppercase;font-size:.85rem;letter-spacing:.08em;color:var(--gold);padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.12)}
+.days-grid h4.today{color:var(--yellow)}
+.days-grid h4.today::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-left:8px;vertical-align:middle}
+.days-grid .row-label{align-self:stretch;display:flex;align-items:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,250,246,.45);border-left:1px solid rgba(255,255,255,.12);padding:0 6px;justify-content:center}
+.days-grid .cell .slot{margin:0}
+.days-grid [hidden]{display:none}
 .day h4{margin:0 0 10px;font-family:var(--display);text-transform:uppercase;font-size:.85rem;letter-spacing:.08em;color:var(--gold);padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.12)}
 .day.today h4{color:var(--yellow)}
 .day.today h4::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-left:8px;vertical-align:middle}
@@ -179,6 +186,8 @@ footer small a{color:rgba(251,250,246,.6);margin-right:16px}
 .day .empty{font-size:.8rem;color:rgba(251,250,246,.35);padding:10px 0}
 .planning .foot{margin:16px 0 0;font-size:.82rem;color:rgba(251,250,246,.5)}
 @media (max-width:760px){
+  .days-grid{display:none}
+  .days{display:grid}
   .week-type{grid-template-columns:1fr;gap:6px}
   .week-type div{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:11px 16px}
   .week-type span{font-size:.88rem}
