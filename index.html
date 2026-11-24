@@ -262,6 +262,11 @@
     .week { background: var(--ink); color: var(--white); padding: 130px 0; border-top: 1px solid var(--line); }
     .week-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
     .week-head p { max-width: 44ch; color: rgba(251,250,246,.65); margin: 0; }
+    .wk-view { display: inline-flex; padding: 5px; gap: 4px; border: 1px solid rgba(201,162,74,.5); border-radius: 999px; margin-bottom: 16px; }
+    .wk-view button { font: inherit; font-weight: 600; font-size: .95rem; padding: .7em 1.5em; border: 0; border-radius: 999px; background: transparent; color: rgba(251,250,246,.75); cursor: pointer; transition: background .25s, color .25s; }
+    .wk-view button[aria-pressed="true"] { background: var(--gold-grad); color: var(--black); }
+    .wk-mode-note { margin: 0 0 24px; color: rgba(251,250,246,.6); font-size: .92rem; }
+    .wk-filters[hidden] { display: none; }
     .wk-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
     .wk-filters button { font: inherit; font-size: .86rem; font-weight: 500; padding: .5em 1.05em; border-radius: 999px; border: 1px solid rgba(251,250,246,.25); background: transparent; color: var(--white); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, color .2s, border-color .2s; }
     .wk-filters button i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--gold)); }
@@ -277,6 +282,8 @@
     .wk-class b { display: block; font-family: var(--display); font-weight: 800; font-size: .92rem; text-transform: uppercase; line-height: 1.15; }
     .wk-class span { display: block; font-size: .78rem; color: rgba(251,250,246,.55); margin-top: 4px; }
     .wk-class.dim { opacity: .14; pointer-events: none; }
+    .wk-class.chip b { display: none; }
+    .wk-class.chip span { margin: 0; font-family: var(--display); font-weight: 800; font-size: .95rem; color: var(--white); }
     .wk-list { display: none; }
     .wk-note { margin: 22px 0 0; font-size: .86rem; color: rgba(251,250,246,.5); }
     .wk-note a { color: var(--white); }
@@ -428,6 +435,10 @@
       .wk-class span { margin: 0; font-family: var(--display); font-weight: 800; color: rgba(251,250,246,.75); font-size: .85rem; white-space: nowrap; }
       .wk-class.dim { display: none; }
       .wk-day.empty { display: none; }
+      .wk-day .items.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .wk-class.chip { padding: 9px 12px; }
+      .wk-class.chip b { display: block; font-size: .95rem; text-transform: none; }
+      .wk-class.chip span { display: none; }
       .nav ul, .hero-stats { display: none; }
       .logo img { height: 50px; }
       .everyone .container, .team .container, .cta .container, .faq .container, .offer-grid, .teaser-card { grid-template-columns: 1fr; }
@@ -583,9 +594,14 @@
           <span class="eyebrow">Planning</span>
           <h2 style="margin-top:18px">Les cours de <span class="gold-text">la semaine</span></h2>
         </div>
-        <p>Du matin au soir : trouvez le cours collectif ou le créneau de coaching individuel qui rentre dans votre emploi du temps. 8 personnes maximum par cours collectif, tous niveaux.</p>
+        <p>Du matin au soir : choisissez entre nos cours collectifs et nos créneaux de coaching individuel, et trouvez celui qui rentre dans votre emploi du temps.</p>
       </div>
-      <div class="wk-filters reveal" role="group" aria-label="Filtrer par discipline" id="wk-filters"></div>
+      <div class="wk-view reveal" role="group" aria-label="Choisir le planning" id="wk-view">
+        <button type="button" data-v="collectif" aria-pressed="true">Cours collectifs</button>
+        <button type="button" data-v="perso" aria-pressed="false">Coaching individuel</button>
+      </div>
+      <p class="wk-mode-note" id="wk-mode-note"></p>
+      <div class="wk-filters" role="group" aria-label="Filtrer par discipline" id="wk-filters"></div>
       <div class="wk-grid reveal" id="wk-grid"></div>
       <div class="wk-list" id="wk-list"></div>
       <p class="wk-note">Planning habituel, susceptible d'évoluer pendant les vacances. Le coaching individuel se fait seul avec le coach, sur réservation. Places disponibles en temps réel sur <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Feelup</a>.</p>
@@ -926,51 +942,75 @@
         const a = document.createElement("a");
         a.className = "wk-class"; a.href = BOOK; a.target = "_blank"; a.rel = "noopener";
         a.dataset.k = x.k; a.style.setProperty("--c", TYPES[x.k].c);
-        a.innerHTML = withTime ? `<b>${TYPES[x.k].name}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>` : `<b>${TYPES[x.k].name}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>`;
+        if (x.k === "perso") { a.classList.add("chip"); a.innerHTML = `<b>${fmt(x.t)}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>`; }
+        else a.innerHTML = `<b>${TYPES[x.k].name}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>`;
         a.setAttribute("aria-label", `${TYPES[x.k].name}, ${DAYS[x.d].toLowerCase()} de ${fmt(x.t)} à ${fmt(x.e)} : réserver sur Feelup`);
         return a;
       };
 
-      // Filtres
+      // Choix du planning : cours collectifs ou coaching individuel
+      let mode = "collectif", filter = "all";
+      const inMode = (x) => (mode === "perso") === (x.k === "perso");
+      const vbox = document.getElementById("wk-view");
+      vbox.addEventListener("click", (e) => {
+        const b = e.target.closest("button"); if (!b || b.dataset.v === mode) return;
+        mode = b.dataset.v; filter = "all";
+        vbox.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        render();
+      });
+
+      // Filtres par discipline (cours collectifs uniquement)
       const fbox = document.getElementById("wk-filters");
-      [["all", "Tous les cours", null]].concat(Object.keys(TYPES).map((k) => [k, TYPES[k].name, TYPES[k].c])).forEach(([k, label, c]) => {
+      [["all", "Toutes les disciplines", null]].concat(Object.keys(TYPES).filter((k) => k !== "perso").map((k) => [k, TYPES[k].name, TYPES[k].c])).forEach(([k, label, c]) => {
         const b = document.createElement("button");
-        b.type = "button"; b.dataset.k = k; b.setAttribute("aria-pressed", k === "all");
+        b.type = "button"; b.dataset.k = k;
         b.innerHTML = (c ? `<i style="--c:${c}"></i>` : "") + label;
         fbox.appendChild(b);
       });
-
-      // Grille ordinateur : une ligne par horaire, une colonne par jour
-      const grid = document.getElementById("wk-grid");
-      grid.appendChild(document.createElement("span"));
-      for (let d = 1; d <= 6; d++) {
-        const h = document.createElement("div"); h.className = "dh" + (d === today ? " today" : ""); h.textContent = DAYS[d]; grid.appendChild(h);
-      }
-      [...new Set(CLASSES.map((x) => x.t))].sort().forEach((t) => {
-        const hr = document.createElement("div"); hr.className = "hr"; hr.textContent = fmt(t); grid.appendChild(hr);
-        for (let d = 1; d <= 6; d++) {
-          const cell = document.createElement("div");
-          CLASSES.filter((x) => x.d === d && x.t === t).sort((a, b) => (a.k === "perso") - (b.k === "perso")).forEach((x) => cell.appendChild(make(x)));
-          grid.appendChild(cell);
-        }
-      });
-
-      // Liste mobile : jour par jour
-      const list = document.getElementById("wk-list");
-      for (let d = 1; d <= 6; d++) {
-        const day = document.createElement("div"); day.className = "wk-day" + (d === today ? " today" : "");
-        day.innerHTML = `<h4>${DAYS[d]}</h4><div class="items"></div>`;
-        CLASSES.filter((x) => x.d === d).sort((a, b) => a.t.localeCompare(b.t) || (a.k === "perso") - (b.k === "perso")).forEach((x) => day.querySelector(".items").appendChild(make(x)));
-        list.appendChild(day);
-      }
-
       fbox.addEventListener("click", (e) => {
         const b = e.target.closest("button"); if (!b) return;
-        fbox.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
-        const k = b.dataset.k;
-        document.querySelectorAll(".wk-class").forEach((a) => a.classList.toggle("dim", k !== "all" && a.dataset.k !== k));
-        document.querySelectorAll(".wk-day").forEach((day) => day.classList.toggle("empty", !day.querySelector(".wk-class:not(.dim)")));
+        filter = b.dataset.k; render();
       });
+
+      const grid = document.getElementById("wk-grid");
+      const list = document.getElementById("wk-list");
+      const note = document.getElementById("wk-mode-note");
+
+      function render() {
+        fbox.hidden = mode === "perso";
+        fbox.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x.dataset.k === filter));
+        note.textContent = mode === "perso"
+          ? "Séance seul avec le coach, programme 100 % personnalisé. 60 € la séance, ou dès 50 € avec la carte de 10."
+          : "8 personnes maximum par cours, tous niveaux. 25 € la séance, ou dès 8,60 € en abonnement.";
+        const shown = CLASSES.filter((x) => inMode(x) && (filter === "all" || x.k === filter));
+        const days = [1, 2, 3, 4, 5, 6].filter((d) => CLASSES.some((x) => inMode(x) && x.d === d));
+
+        // Grille ordinateur : une ligne par horaire, une colonne par jour
+        grid.innerHTML = "";
+        grid.style.gridTemplateColumns = `62px repeat(${days.length}, minmax(0, 1fr))`;
+        grid.appendChild(document.createElement("span"));
+        days.forEach((d) => { const h = document.createElement("div"); h.className = "dh" + (d === today ? " today" : ""); h.textContent = DAYS[d]; grid.appendChild(h); });
+        [...new Set(shown.map((x) => x.t))].sort().forEach((t) => {
+          const hr = document.createElement("div"); hr.className = "hr"; hr.textContent = fmt(t); grid.appendChild(hr);
+          days.forEach((d) => {
+            const cell = document.createElement("div");
+            shown.filter((x) => x.d === d && x.t === t).forEach((x) => cell.appendChild(make(x)));
+            grid.appendChild(cell);
+          });
+        });
+
+        // Liste mobile : jour par jour
+        list.innerHTML = "";
+        days.forEach((d) => {
+          const items = shown.filter((x) => x.d === d).sort((a, b) => a.t.localeCompare(b.t));
+          if (!items.length) return;
+          const day = document.createElement("div"); day.className = "wk-day" + (d === today ? " today" : "");
+          day.innerHTML = `<h4>${DAYS[d]}</h4><div class="items${mode === "perso" ? " chips" : ""}"></div>`;
+          items.forEach((x) => day.querySelector(".items").appendChild(make(x)));
+          list.appendChild(day);
+        });
+      }
+      render();
     })();
 
     // Apparition des sections au défilement
