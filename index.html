@@ -258,6 +258,29 @@
     .disc.star { background: linear-gradient(160deg, rgba(201,162,74,.16), transparent 70%); }
     .disc.star h4 { color: var(--yellow); }
 
+    /* ---------- Planning de la semaine ---------- */
+    .week { background: var(--ink); color: var(--white); padding: 130px 0; border-top: 1px solid var(--line); }
+    .week-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+    .week-head p { max-width: 44ch; color: rgba(251,250,246,.65); margin: 0; }
+    .wk-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+    .wk-filters button { font: inherit; font-size: .86rem; font-weight: 500; padding: .5em 1.05em; border-radius: 999px; border: 1px solid rgba(251,250,246,.25); background: transparent; color: var(--white); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background .2s, color .2s, border-color .2s; }
+    .wk-filters button i { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--gold)); }
+    .wk-filters button[aria-pressed="true"] { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+    .wk-grid { display: grid; grid-template-columns: 62px repeat(6, minmax(0, 1fr)); gap: 8px; }
+    .wk-grid .dh { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: .85rem; letter-spacing: .08em; color: var(--gold); padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+    .wk-grid .dh.today { color: var(--yellow); }
+    .wk-grid .dh.today::after { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); margin-left: 8px; vertical-align: middle; }
+    .wk-grid .hr { font-family: var(--display); font-weight: 800; font-size: .9rem; color: rgba(251,250,246,.5); padding-top: 14px; }
+    .wk-class { display: block; height: 100%; text-decoration: none; background: #1d1d1d; border: 1px solid rgba(255,255,255,.08); border-left: 3px solid var(--c); padding: 12px 10px 13px; transition: transform .2s, background .2s, border-color .2s, opacity .25s; }
+    .wk-class:hover { transform: translateY(-2px); background: #252525; border-color: var(--gold); border-left-color: var(--c); }
+    .wk-class b { display: block; font-family: var(--display); font-weight: 800; font-size: .92rem; text-transform: uppercase; line-height: 1.15; }
+    .wk-class span { display: block; font-size: .78rem; color: rgba(251,250,246,.55); margin-top: 4px; }
+    .wk-class.dim { opacity: .14; pointer-events: none; }
+    .wk-list { display: none; }
+    .wk-note { margin: 22px 0 0; font-size: .86rem; color: rgba(251,250,246,.5); }
+    .wk-note a { color: var(--white); }
+    .week .actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px; }
+
     /* ---------- Tarifs ---------- */
     .pricing { padding: 130px 0; background: var(--white); }
     .pricing-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
@@ -394,6 +417,16 @@
 
     /* ---------- Mobile ---------- */
     @media (max-width: 960px) {
+      .wk-grid { display: none; }
+      .wk-list { display: grid; gap: 0; }
+      .wk-day { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+      .wk-day h4 { margin: 10px 0 0; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: .85rem; letter-spacing: .06em; color: var(--gold); }
+      .wk-day.today h4 { color: var(--yellow); }
+      .wk-day .items { display: grid; gap: 8px; }
+      .wk-class { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+      .wk-class span { margin: 0; font-family: var(--display); font-weight: 800; color: rgba(251,250,246,.75); font-size: .85rem; white-space: nowrap; }
+      .wk-class.dim { display: none; }
+      .wk-day.empty { display: none; }
       .nav ul, .hero-stats { display: none; }
       .logo img { height: 50px; }
       .everyone .container, .team .container, .cta .container, .faq .container, .offer-grid, .teaser-card { grid-template-columns: 1fr; }
@@ -427,6 +460,7 @@
       <ul>
         <li><a href="#studio">Le studio</a></li>
         <li><a href="#offres">Nos séances</a></li>
+        <li><a href="#planning">Planning</a></li>
         <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#equipe">L'équipe</a></li>
         <li><a href="blog/">Blog</a></li>
@@ -536,6 +570,27 @@
         <div class="disc"><span class="n">CAF</span><h4>Cuisses Abdos Fessiers</h4><p>Ciblé, efficace et rythmé pour tonifier le bas du corps et la sangle abdominale.</p></div>
         <div class="disc"><span class="n">Pilates</span><h4>Contrôle</h4><p>Posture, gainage profond et mobilité pour un corps plus fort et plus libre.</p></div>
         <div class="disc star"><span class="n">Préparation physique</span><h4>Performance</h4><p>Des cours encadrés par Aymar, préparateur physique, pour gagner en performance et prévenir les blessures.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planning de la semaine -->
+  <section class="week" id="planning">
+    <div class="container">
+      <div class="week-head reveal">
+        <div>
+          <span class="eyebrow">Planning</span>
+          <h2 style="margin-top:18px">Les cours de <span class="gold-text">la semaine</span></h2>
+        </div>
+        <p>Midi, fin d'après-midi ou soir : trouvez le cours collectif qui rentre dans votre emploi du temps. 8 personnes maximum par cours, tous niveaux.</p>
+      </div>
+      <div class="wk-filters reveal" role="group" aria-label="Filtrer par discipline" id="wk-filters"></div>
+      <div class="wk-grid reveal" id="wk-grid"></div>
+      <div class="wk-list" id="wk-list"></div>
+      <p class="wk-note">Planning habituel des cours collectifs, susceptible d'évoluer pendant les vacances. Le coaching individuel se réserve sur d'autres créneaux, du lundi au vendredi. Places disponibles en temps réel sur <a href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Feelup</a>.</p>
+      <div class="actions">
+        <a class="btn btn-yellow" href="https://feelup.app/turagiye-coaching-panazol" target="_blank" rel="noopener">Réserver un cours →</a>
+        <a class="btn btn-line" href="blog/renforcement-musculaire-tout-age.html">Pourquoi le renforcement ?</a>
       </div>
     </div>
   </section>
@@ -832,6 +887,79 @@
       } catch (err) { /* en cas de souci, on garde les photos du studio */ }
     }
     loadInstagram();
+
+    // ---------- Planning de la semaine (cours collectifs) ----------
+    // Pour modifier le planning : changer cette liste. d = jour (1 lundi … 6 samedi).
+    (function () {
+      const BOOK = "https://feelup.app/turagiye-coaching-panazol";
+      const TYPES = {
+        cross: { name: "Cross training", c: "#3fb6a8" },
+        renfo: { name: "Renforcement", c: "#f2a07b" },
+        hyrox: { name: "Hyrox", c: "#b7dd6a" },
+        caf:   { name: "Cuisses Abdos Fessiers", c: "#d36b5a" },
+        prepa: { name: "Préparation physique", c: "#c99be6" }
+      };
+      const CLASSES = [
+        { d: 1, t: "12:15", e: "13:15", k: "cross" }, { d: 1, t: "17:10", e: "18:10", k: "renfo" }, { d: 1, t: "18:15", e: "19:15", k: "cross" }, { d: 1, t: "19:15", e: "20:15", k: "renfo" },
+        { d: 2, t: "12:15", e: "13:15", k: "renfo" }, { d: 2, t: "17:10", e: "18:10", k: "caf" },   { d: 2, t: "18:15", e: "19:15", k: "cross" }, { d: 2, t: "19:15", e: "20:15", k: "hyrox" },
+        { d: 3, t: "12:15", e: "13:15", k: "hyrox" }, { d: 3, t: "15:00", e: "16:00", k: "prepa" }, { d: 3, t: "17:10", e: "18:10", k: "renfo" }, { d: 3, t: "18:15", e: "19:15", k: "cross" }, { d: 3, t: "19:15", e: "20:15", k: "hyrox" },
+        { d: 4, t: "12:15", e: "13:15", k: "renfo" }, { d: 4, t: "17:10", e: "18:10", k: "cross" }, { d: 4, t: "18:15", e: "19:15", k: "renfo" }, { d: 4, t: "19:15", e: "20:15", k: "hyrox" },
+        { d: 5, t: "12:15", e: "13:15", k: "hyrox" }, { d: 5, t: "17:10", e: "18:10", k: "renfo" }, { d: 5, t: "18:15", e: "19:15", k: "hyrox" },
+        { d: 6, t: "11:00", e: "12:00", k: "cross" }
+      ];
+      const DAYS = ["", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+      const fmt = (t) => t.replace(":", "h");
+      const today = new Date().getDay();
+      const make = (x, withTime) => {
+        const a = document.createElement("a");
+        a.className = "wk-class"; a.href = BOOK; a.target = "_blank"; a.rel = "noopener";
+        a.dataset.k = x.k; a.style.setProperty("--c", TYPES[x.k].c);
+        a.innerHTML = withTime ? `<b>${TYPES[x.k].name}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>` : `<b>${TYPES[x.k].name}</b><span>${fmt(x.t)} – ${fmt(x.e)}</span>`;
+        a.setAttribute("aria-label", `${TYPES[x.k].name}, ${DAYS[x.d].toLowerCase()} de ${fmt(x.t)} à ${fmt(x.e)} : réserver sur Feelup`);
+        return a;
+      };
+
+      // Filtres
+      const fbox = document.getElementById("wk-filters");
+      [["all", "Tous les cours", null]].concat(Object.keys(TYPES).map((k) => [k, TYPES[k].name, TYPES[k].c])).forEach(([k, label, c]) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.dataset.k = k; b.setAttribute("aria-pressed", k === "all");
+        b.innerHTML = (c ? `<i style="--c:${c}"></i>` : "") + label;
+        fbox.appendChild(b);
+      });
+
+      // Grille ordinateur : une ligne par horaire, une colonne par jour
+      const grid = document.getElementById("wk-grid");
+      grid.appendChild(document.createElement("span"));
+      for (let d = 1; d <= 6; d++) {
+        const h = document.createElement("div"); h.className = "dh" + (d === today ? " today" : ""); h.textContent = DAYS[d]; grid.appendChild(h);
+      }
+      [...new Set(CLASSES.map((x) => x.t))].sort().forEach((t) => {
+        const hr = document.createElement("div"); hr.className = "hr"; hr.textContent = fmt(t); grid.appendChild(hr);
+        for (let d = 1; d <= 6; d++) {
+          const cell = document.createElement("div");
+          CLASSES.filter((x) => x.d === d && x.t === t).forEach((x) => cell.appendChild(make(x)));
+          grid.appendChild(cell);
+        }
+      });
+
+      // Liste mobile : jour par jour
+      const list = document.getElementById("wk-list");
+      for (let d = 1; d <= 6; d++) {
+        const day = document.createElement("div"); day.className = "wk-day" + (d === today ? " today" : "");
+        day.innerHTML = `<h4>${DAYS[d]}</h4><div class="items"></div>`;
+        CLASSES.filter((x) => x.d === d).forEach((x) => day.querySelector(".items").appendChild(make(x)));
+        list.appendChild(day);
+      }
+
+      fbox.addEventListener("click", (e) => {
+        const b = e.target.closest("button"); if (!b) return;
+        fbox.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+        const k = b.dataset.k;
+        document.querySelectorAll(".wk-class").forEach((a) => a.classList.toggle("dim", k !== "all" && a.dataset.k !== k));
+        document.querySelectorAll(".wk-day").forEach((day) => day.classList.toggle("empty", !day.querySelector(".wk-class:not(.dim)")));
+      });
+    })();
 
     // Apparition des sections au défilement
     const io = new IntersectionObserver((entries) => {
